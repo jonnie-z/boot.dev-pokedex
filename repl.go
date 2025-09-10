@@ -9,27 +9,39 @@ import (
 	"time"
 
 	"github.com/jonniez/pokedexcli/internal"
+	"github.com/jonniez/pokedexcli/types"
 )
 
 var (
-	once  sync.Once
-	cacheInstance *internal.Cache
+	cacheOnce      sync.Once
+	cacheInstance  *internal.Cache
+	configOnce     sync.Once
+	configInstance *Config
 )
 
 func getCache() *internal.Cache {
-	once.Do(func() {
+	cacheOnce.Do(func() {
 		cacheInstance = internal.NewCache(5 * time.Second)
 	})
 
 	return cacheInstance
 }
 
+func getConfig() *Config {
+	configOnce.Do(func() {
+		newConfig := Config{
+			Next: "",
+			Previous: "",
+			Pokemon: map[string]types.Pokemon{},
+		}
+		configInstance = &newConfig
+	})
+
+	return configInstance
+}
+
 func startRepl() {
 	scanner := bufio.NewScanner(os.Stdin)
-	c := Config{
-		Next:     "",
-		Previous: "",
-	}
 
 	for {
 		fmt.Print("Pokédex > ")
@@ -37,7 +49,7 @@ func startRepl() {
 		input := cleanInput(scanner.Text())
 
 		userCmd := input[0]
-		args := input [1:]
+		args := input[1:]
 
 		cmd, ok := getCommands()[userCmd]
 		if !ok {
@@ -45,7 +57,10 @@ func startRepl() {
 			continue
 		}
 
-		cmd.callback(&c, args)
+		err := cmd.callback(getConfig(), args)
+		if err != nil {
+			fmt.Printf("err: %v\n", err)
+		}
 	}
 }
 

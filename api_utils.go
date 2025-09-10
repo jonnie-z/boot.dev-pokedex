@@ -87,6 +87,44 @@ func getLocationPokemon(areaName string) (types.LocationAreaResponse, error) {
 	return locations, nil
 }
 
+func getPokemon(pokemonName string) (types.Pokemon, error) {
+	url := pokemonURL + pokemonName
+
+	cache := getCache()
+	if val, exists := cache.Get(url); exists {
+		pokemon := types.Pokemon{}
+		decoder := json.NewDecoder(bytes.NewBuffer(val))
+		err := decoder.Decode(&pokemon)
+		if err != nil {
+			return types.Pokemon{}, fmt.Errorf("issue decoding json: %w", err)
+		}
+
+		return pokemon, nil
+	}
+
+	res, err := http.Get(url)
+	if err != nil {
+		return types.Pokemon{}, fmt.Errorf("issue getting %s: %w", locationAreaURL, err)
+	}
+	defer res.Body.Close()
+
+	data, err := io.ReadAll(res.Body)
+	if err != nil {
+		return types.Pokemon{}, fmt.Errorf("issue reading data: %w", err)
+	}
+
+	pokemon := types.Pokemon{}
+	decoder := json.NewDecoder(bytes.NewBuffer(data))
+	err = decoder.Decode(&pokemon)
+	if err != nil {
+		return types.Pokemon{}, fmt.Errorf("issue decoding json: %w", err)
+	}
+
+	cache.Add(url, data)
+
+	return pokemon, nil
+}
+
 
 func getNewUrl(s string) string {
 	if s != "" {
