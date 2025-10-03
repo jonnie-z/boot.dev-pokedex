@@ -19,7 +19,7 @@ type cacheEntry struct {
 func NewCache(interval time.Duration) *Cache {
 	c := Cache{
 		CacheEntries: map[string]cacheEntry{},
-		Interval: interval,
+		Interval:     interval,
 	}
 	go c.reapLoop()
 	return &c
@@ -30,7 +30,7 @@ func (c *Cache) Add(key string, val []byte) {
 	defer c.Mu.Unlock()
 	c.CacheEntries[key] = cacheEntry{
 		createdAt: time.Now(),
-		val: val,
+		val:       val,
 	}
 }
 

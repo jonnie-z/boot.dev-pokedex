@@ -18,4 +18,3 @@ type Pokemon struct {
 		} `json:"type"`
 	} `json:"types"`
 }
-

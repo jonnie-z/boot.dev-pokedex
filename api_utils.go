@@ -125,7 +125,6 @@ func getPokemon(pokemonName string) (types.Pokemon, error) {
 	return pokemon, nil
 }
 
-
 func getNewUrl(s string) string {
 	if s != "" {
 		return strings.TrimPrefix(s, locationAreaURL)

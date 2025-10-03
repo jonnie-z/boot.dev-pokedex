@@ -9,4 +9,3 @@ type LocationResponse struct {
 		Url  string `json:"url"`
 	} `json:"results"`
 }
-

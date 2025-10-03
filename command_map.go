@@ -22,5 +22,3 @@ func commandMap(c *Config, args []string) error {
 
 	return nil
 }
-
-

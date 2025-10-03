@@ -14,17 +14,17 @@ func TestCleanInput(t *testing.T) {
 		expected []string
 	}{
 		{
-			input: "  hello world   ",
+			input:    "  hello world   ",
 			expected: []string{"hello", "world"},
-		}, 
+		},
 		{
-			input: "   HELoLO wlwo ORD ",
+			input:    "   HELoLO wlwo ORD ",
 			expected: []string{"helolo", "wlwo", "ord"},
 		},
 	}
 
 	for _, c := range cases {
-		actual:= cleanInput(c.input)
+		actual := cleanInput(c.input)
 		if len(c.expected) != len(actual) {
 			t.Errorf("Not the correct amout of words!")
 		}

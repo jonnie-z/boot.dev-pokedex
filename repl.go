@@ -30,9 +30,9 @@ func getCache() *internal.Cache {
 func getConfig() *Config {
 	configOnce.Do(func() {
 		newConfig := Config{
-			Next: "",
+			Next:     "",
 			Previous: "",
-			Pokemon: map[string]types.Pokemon{},
+			Pokemon:  map[string]types.Pokemon{},
 		}
 		configInstance = &newConfig
 	})
