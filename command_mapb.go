@@ -5,24 +5,24 @@ import (
 )
 
 func commandMapb(c *Config, args []string) error {
-    if c.Next != firstNext && c.Previous == "" {
-        fmt.Println("You're on the first page.")
-        return nil
-    }
+	if c.Next != firstNext && c.Previous == "" {
+		fmt.Println("You're on the first page.")
+		return nil
+	}
 
-    urlEnd := "" + c.Previous
+	urlEnd := "" + c.Previous
 
-    locations, err := getLocations(urlEnd)
-    if err != nil {
-        return fmt.Errorf("error getting locations: %w", err)
-    }
+	locations, err := getLocations(urlEnd)
+	if err != nil {
+		return fmt.Errorf("error getting locations: %w", err)
+	}
 
-    c.Next = getNewUrl(locations.Next)
-    c.Previous = getNewUrl(locations.Previous)
+	c.Next = getNewUrl(locations.Next)
+	c.Previous = getNewUrl(locations.Previous)
 
-    for _, result := range locations.Results {
-        fmt.Printf("%s\n", result.Name)
-    }
+	for _, result := range locations.Results {
+		fmt.Printf("%s\n", result.Name)
+	}
 
-    return nil
+	return nil
 }
