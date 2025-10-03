@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jonniez/pokedexcli/internal"
+	"github.com/jonnie-z/boot.dev-pokedex/internal"
 )
 
 func TestCleanInput(t *testing.T) {

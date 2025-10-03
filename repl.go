@@ -8,8 +8,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/jonniez/pokedexcli/internal"
-	"github.com/jonniez/pokedexcli/types"
+	"github.com/jonnie-z/boot.dev-pokedex/internal"
+	"github.com/jonnie-z/boot.dev-pokedex/types"
 )
 
 var (

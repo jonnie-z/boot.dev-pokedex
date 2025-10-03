@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/jonniez/pokedexcli/types"
+	"github.com/jonnie-z/boot.dev-pokedex/types"
 )
 
 func getLocations(urlEnd string) (types.LocationResponse, error) {

@@ -1,6 +1,6 @@
 package main
 
-import "github.com/jonniez/pokedexcli/types"
+import "github.com/jonnie-z/boot.dev-pokedex/types"
 
 type Config struct {
 	Next     string

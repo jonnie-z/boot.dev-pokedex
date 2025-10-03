@@ -26,4 +26,3 @@ func commandMapb(c *Config, args []string) error {
 
 	return nil
 }
-
